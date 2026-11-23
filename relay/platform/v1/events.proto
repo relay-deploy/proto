@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package relay.platform.v1;
+
+import "google/protobuf/duration.proto";
+import "relay/common/v1/failure.proto";
+
+message ReleaseSucceeded {
+  string app_id = 1;
+  string project_id = 2;
+  string release_id = 3;
+  string image_reference = 4;
+  string image_digest = 5;
+  google.protobuf.Duration duration = 6;
+}
+
+message ReleaseFailed {
+  string app_id = 1;
+  string project_id = 2;
+  string release_id = 3;
+  string image_reference = 4;
+  relay.common.v1.Failure failure = 5;
+  google.protobuf.Duration duration = 6;
+}
