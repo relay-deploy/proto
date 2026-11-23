@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package relay.platform.v1;
+
+import "google/protobuf/timestamp.proto";
+
+message EnvVar {
+  EnvVarScope scope = 1;
+  string name = 2;
+  string value = 3;
+  bool secret = 4;
+  google.protobuf.Timestamp updated_at = 5;
+}
+
+message EnvVarScope {
+  oneof target {
+    string app_id = 1;
+    string project_id = 2;
+  }
+}
