@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package relay.runtime.v1;
+
+message WorkloadCrashed {
+  string app_id = 1;
+  string project_id = 2;
+  string release_id = 3;
+  int32 exit_code = 4;
+  bool oom_killed = 5;
+  uint32 restart_count = 6;
+}
+
+message WorkloadRecovered {
+  string app_id = 1;
+  string project_id = 2;
+  string release_id = 3;
+  uint32 restart_count = 4;
+}
+
+message WorkloadStopped {
+  string app_id = 1;
+  string project_id = 2;
+  string release_id = 3;
+  int32 exit_code = 4;
+}
