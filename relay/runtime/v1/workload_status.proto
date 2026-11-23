@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package relay.runtime.v1;
+
+import "google/protobuf/timestamp.proto";
+
+message WorkloadStatus {
+  string app_id = 1;
+  string release_id = 2;
+  WorkloadPhase phase = 3;
+  string image_digest = 4;
+  uint32 restart_count = 5;
+  google.protobuf.Timestamp observed_at = 6;
+}
+
+enum WorkloadPhase {
+  WORKLOAD_PHASE_UNSPECIFIED = 0;
+  WORKLOAD_PHASE_PENDING = 1;
+  WORKLOAD_PHASE_RUNNING = 2;
+  WORKLOAD_PHASE_RESTARTING = 3;
+  WORKLOAD_PHASE_STOPPED = 4;
+  WORKLOAD_PHASE_CRASHED = 5;
+}

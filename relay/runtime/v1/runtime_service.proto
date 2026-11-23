@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+package relay.runtime.v1;
+
+import "relay/runtime/v1/workload.proto";
+import "relay/runtime/v1/workload_status.proto";
+
+service RuntimeService {
+  rpc ApplyWorkload(ApplyWorkloadRequest) returns (stream ApplyWorkloadResponse);
+  rpc RestartWorkload(RestartWorkloadRequest) returns (RestartWorkloadResponse);
+  rpc StopWorkload(StopWorkloadRequest) returns (StopWorkloadResponse);
+  rpc RemoveWorkload(RemoveWorkloadRequest) returns (RemoveWorkloadResponse);
+  rpc GetWorkload(GetWorkloadRequest) returns (GetWorkloadResponse);
+  rpc ListWorkloads(ListWorkloadsRequest) returns (ListWorkloadsResponse);
+}
+
+message ApplyWorkloadRequest {
+  Workload workload = 1;
+}
+
+message ApplyWorkloadResponse {
+  oneof update {
+    ApplyProgress progress = 1;
+    WorkloadStatus status = 2;
+  }
+}
+
+message ApplyProgress {
+  ApplyStep step = 1;
+  uint64 completed_bytes = 2;
+  uint64 total_bytes = 3;
+}
+
+enum ApplyStep {
+  APPLY_STEP_UNSPECIFIED = 0;
+  APPLY_STEP_PULLING_IMAGE = 1;
+  APPLY_STEP_REPLACING_WORKLOAD = 2;
+  APPLY_STEP_STARTING_WORKLOAD = 3;
+}
+
+message RestartWorkloadRequest {
+  string app_id = 1;
+}
+
+message RestartWorkloadResponse {
+  WorkloadStatus status = 1;
+}
+
+message StopWorkloadRequest {
+  string app_id = 1;
+}
+
+message StopWorkloadResponse {
+  WorkloadStatus status = 1;
+}
+
+message RemoveWorkloadRequest {
+  string app_id = 1;
+}
+
+message RemoveWorkloadResponse {}
+
+message GetWorkloadRequest {
+  string app_id = 1;
+}
+
+message GetWorkloadResponse {
+  WorkloadStatus status = 1;
+}
+
+message ListWorkloadsRequest {
+  string project_id = 1;
+}
+
+message ListWorkloadsResponse {
+  repeated WorkloadStatus workloads = 1;
+}

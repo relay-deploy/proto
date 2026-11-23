@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package relay.common.v1;
+
+message Failure {
+  string code = 1;
+  string message = 2;
+}

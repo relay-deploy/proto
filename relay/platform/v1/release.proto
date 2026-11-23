@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package relay.platform.v1;
+
+import "google/protobuf/timestamp.proto";
+import "relay/common/v1/failure.proto";
+import "relay/common/v1/image.proto";
+
+message Release {
+  string id = 1;
+  string app_id = 2;
+  relay.common.v1.Image image = 3;
+  ReleaseTrigger trigger = 4;
+  ReleasePhase phase = 5;
+  relay.common.v1.Failure failure = 6;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp finished_at = 8;
+}
+
+enum ReleaseTrigger {
+  RELEASE_TRIGGER_UNSPECIFIED = 0;
+  RELEASE_TRIGGER_MANUAL = 1;
+}
+
+enum ReleasePhase {
+  RELEASE_PHASE_UNSPECIFIED = 0;
+  RELEASE_PHASE_QUEUED = 1;
+  RELEASE_PHASE_APPLYING = 2;
+  RELEASE_PHASE_SUCCEEDED = 3;
+  RELEASE_PHASE_FAILED = 4;
+}
