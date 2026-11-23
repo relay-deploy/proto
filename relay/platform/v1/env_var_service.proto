@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package relay.platform.v1;
+
+import "relay/platform/v1/env_var.proto";
+
+service EnvVarService {
+  rpc SetEnvVar(SetEnvVarRequest) returns (SetEnvVarResponse);
+  rpc ListEnvVars(ListEnvVarsRequest) returns (ListEnvVarsResponse);
+  rpc DeleteEnvVar(DeleteEnvVarRequest) returns (DeleteEnvVarResponse);
+}
+
+message SetEnvVarRequest {
+  EnvVarScope scope = 1;
+  string name = 2;
+  string value = 3;
+  bool secret = 4;
+}
+
+message SetEnvVarResponse {
+  EnvVar env_var = 1;
+}
+
+message ListEnvVarsRequest {
+  EnvVarScope scope = 1;
+  int32 page_size = 2;
+  string page_token = 3;
+}
+
+message ListEnvVarsResponse {
+  repeated EnvVar env_vars = 1;
+  string next_page_token = 2;
+}
+
+message DeleteEnvVarRequest {
+  EnvVarScope scope = 1;
+  string name = 2;
+}
+
+message DeleteEnvVarResponse {}
