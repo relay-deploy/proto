@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package relay.common.v1;
+
+message Image {
+  string reference = 1;
+  string digest = 2;
+}

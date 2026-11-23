@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+package relay.platform.v1;
+
+import "relay/platform/v1/app.proto";
+import "relay/platform/v1/release.proto";
+
+service AppService {
+  rpc CreateApp(CreateAppRequest) returns (CreateAppResponse);
+  rpc GetApp(GetAppRequest) returns (GetAppResponse);
+  rpc ListApps(ListAppsRequest) returns (ListAppsResponse);
+  rpc DeployApp(DeployAppRequest) returns (DeployAppResponse);
+  rpc RestartApp(RestartAppRequest) returns (RestartAppResponse);
+  rpc StopApp(StopAppRequest) returns (StopAppResponse);
+  rpc RemoveApp(RemoveAppRequest) returns (RemoveAppResponse);
+}
+
+message CreateAppRequest {
+  string app_id = 1;
+  string project_id = 2;
+  string name = 3;
+  AppSpec spec = 4;
+}
+
+message CreateAppResponse {
+  App app = 1;
+}
+
+message GetAppRequest {
+  string app_id = 1;
+}
+
+message GetAppResponse {
+  App app = 1;
+}
+
+message ListAppsRequest {
+  string project_id = 1;
+  int32 page_size = 2;
+  string page_token = 3;
+}
+
+message ListAppsResponse {
+  repeated App apps = 1;
+  string next_page_token = 2;
+}
+
+message DeployAppRequest {
+  string app_id = 1;
+  string release_id = 2;
+}
+
+message DeployAppResponse {
+  Release release = 1;
+}
+
+message RestartAppRequest {
+  string app_id = 1;
+}
+
+message RestartAppResponse {
+  App app = 1;
+}
+
+message StopAppRequest {
+  string app_id = 1;
+}
+
+message StopAppResponse {
+  App app = 1;
+}
+
+message RemoveAppRequest {
+  string app_id = 1;
+}
+
+message RemoveAppResponse {}

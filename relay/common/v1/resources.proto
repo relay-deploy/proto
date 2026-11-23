@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package relay.common.v1;
+
+message Resources {
+  uint64 memory_limit_bytes = 1;
+  uint32 cpu_limit_millicores = 2;
+}

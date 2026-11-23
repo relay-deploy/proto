@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package relay.runtime.v1;
+
+import "relay/common/v1/image.proto";
+import "relay/common/v1/resources.proto";
+
+message Workload {
+  string app_id = 1;
+  string project_id = 2;
+  string release_id = 3;
+  string name = 4;
+  WorkloadSpec spec = 5;
+}
+
+message WorkloadSpec {
+  relay.common.v1.Image image = 1;
+  repeated EnvironmentVariable environment = 2;
+  repeated Route routes = 3;
+  relay.common.v1.Resources resources = 4;
+}
+
+message EnvironmentVariable {
+  string name = 1;
+  string value = 2;
+}
+
+message Route {
+  string host = 1;
+  uint32 port = 2;
+}
